@@ -29,11 +29,3 @@ fig.write_image("images/ex_plot.png")
 ## References
 
 Artfornormies was built on top of Plotly visualization libaray: [Plotly - Python Documentation](https://plotly.com/python/)
-
-TO DO - AUTHOR:
-- Rework readme - add explanations
-    - add docs for each fn
-    - Add images for each banner
-- explore test for each fn
-- refactor colorscheme variables
-- 
