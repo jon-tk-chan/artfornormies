@@ -1,7 +1,41 @@
 import plotly.graph_objects as go
-# import pandas as pd
-# import numpy as np
+# from io import BytesIO #TEST IF NEEDED ON PACKAGE V0.0.3
 
+# Colors were selected using imagecolorpicker.com
+#colors from selected photos from Greg Girard's photography work: https://bluelotus-gallery.com/#/greg-girard/
+ggBeige = '#c8a398'
+ggBlack = '#18171a'
+ggBrownLight = '#78554e'
+ggGreenLight = '#73a8a8'
+ggGreenDark = '#466863'
+ggRedDark = '#b2263f'
+ggRedLight = '#f39591'
+ggBrownDark = '#4e3832'
+ggBlueLight = '#597f9e'
+ggBlueDark = '#485061'
+#colors inspired by Chinatown in Vancouver, BC
+yvr_medYellow = '#fcbe11'
+yvr_medGreen = '#197059'
+yvr_darkRed = '#b80807'
+yvr_darkWhite = '#e9e3dc'
+yvr_darkYellow = '#f4a002'
+#ORIGINAL: color codes for HK Taxis
+hk_red = "#A8102A"
+hk_green = '#7bedda'
+hk_blue = '#1076a8'
+
+# hk_pm = [ggBeige, ggBlack, ggBrownLight, ggGreenLight, ggGreenDark, ggRedDark, ggRedLight, ggBrownDark, ggBlueLight, ggBlueDark]
+color_combos = {
+    "Espresso (brown/black)": [ggBrownLight, ggBlack],
+    "Pinky (pink/green)": [ggRedLight, ggGreenDark],
+    "Blush (pink/red)":[ggRedLight, ggRedDark],
+    "Pacific (blue/green)" : [ggBlueDark, ggGreenLight],
+    # "HK Taxi MUTED (blue/red)" :[ggBlueLight,ggRedDark],
+    "Nougat (beige/brown)": [ggBeige, ggBrownDark],
+    "HK Taxi (blue/red)":[hk_blue, hk_red],
+    "Chinatown Bakery (yellow/turquoise)": [yvr_medYellow, yvr_medGreen],
+    "Dim Sum (yellow/red)": [yvr_darkYellow, yvr_darkRed]
+ }
 
 #colorschemes for MARKERS
 hk_redgreen = [[0, 'rgb(168,16,42)' ],
@@ -45,20 +79,23 @@ triad_1 = [sand_823, salmon_823, blue_823]
 
 data_font='Futura'
 title_font='Futura'
-
-fig_width=1000
-fig_height=1200
-
 anno_text_default = "Source: <i>https://github.com/jon-tk-chan</i><br><i>Instagram: @artfornormies</i>"
 
 #NEWLINED FUNCTION - for inserting breaks into text labels for graphs
 def newlined(input_string, max_line_len=12):
-    """Return a string with <br> added when one line reaches max_line_len in place of the next space
+    """Return a string with line breaks added when line length reaches max_line_len.
     
-    Use for individual plotly labels (especially with scatter)
+    This function is useful for formatting individual plotly labels, especially when
+    dealing with scatter plots.
+    
+    Args:
+        input_string (str): The input string to be formatted.
+        max_line_len (int, optional): The maximum desired line length before adding a line break.
+            Defaults to 12.
+    
+    Returns:
+        str: The formatted string with line breaks added.
     """
-#     input_split = input_string.split()
-#     print(input_split)
     
     curr_line_len = 0
     out_str = ""
@@ -152,32 +189,44 @@ def create_heatmap(x_ticks=['LEFT TICK', 'RIGHT TICK'], y_ticks=['BOTTOM TICK', 
     return fig
 
 def create_venn_2(venn_labels=["LEFT", "RIGHT","MID"], fill_venn=False, 
-                  left_color=hk_blue, right_color=hk_red, label_charlen=10,
-                  main_title="VENN_TITLE",anno_text=anno_text_default,night_mode=False):
-    """Returns a Plotly Figure of a 2-circle venn diagram with labels (left, right, middle itersection)
+                  left_color=hk_blue, right_color=hk_red, opacity_val = 0.5,
+                  label_charlen=10,
+                  main_title="VENN_TITLE",anno_text=anno_text_default,night_mode=False,
+                  fig_width=1000, fig_height=1200, label_size=28):
+    """Generate a Plotly Figure of a 2-circle Venn diagram with labeled regions.
     
-    Optional settings:
+    Args:
+        venn_labels (list): Labels for the Venn diagram regions [left, right, middle intersection].
+            Default is ["LEFT", "RIGHT", "MID"].
+        fill_venn (bool): Whether to fill Venn diagram regions with colors. Default is False.
+        left_color (str): Predefined color for the left Venn region. Default is hk_blue.
+        right_color (str): Predefined color for the right Venn region. Default is hk_red.
+        label_charlen (int): Maximum character length for each label. Default is 10.
+        main_title (str): Title for the Venn diagram figure. Default is "VENN_TITLE".
+        anno_text (str): Annotation text displayed below the Venn diagram. Default is anno_text_default.
+        night_mode (bool): Use night mode color scheme. Default is False.
+        fig_width (int): Width of the figure in pixels. Default is 1000.
+        fig_height (int): Height of the figure in pixels. Default is 1200.
+        label_size (int): Font size for the labels. Default is 28.
     
-    text_size: int
-    left_color = predefined color (str)
-    right_color = predefined color (str)
-    night_mode: boolean
+    Returns:
+        go.Figure: A Plotly Figure containing the 2-circle Venn diagram.
     """
-    title_size = 28 #not referenced?
-    label_size = 30
+    title_size = 32 #not referenced?
+    # label_size = 30
     anno_size = 14
     if not night_mode:
         outline_color="black"
         font_color="black"
         bg_color="white"
-        opacity_val = 0.25
+        # opacity_val = 0.25
         line_color="black"
        
     else:
         outline_color="white"
         font_color="white"
         bg_color="black"
-        opacity_val = 0.7
+        # opacity_val = 0.7
         line_color="white"
         
     if not fill_venn:
@@ -193,7 +242,6 @@ def create_venn_2(venn_labels=["LEFT", "RIGHT","MID"], fill_venn=False,
         "y": [1,1,1],
             "text": [newlined(venn_labels[0], label_charlen), newlined(venn_labels[2],label_charlen),newlined(venn_labels[1],label_charlen)]
     }
-#     print(data_dict['text'])
     fig = go.Figure()
 
     ### ADD VENN DIAGRAMS
@@ -234,7 +282,7 @@ def create_venn_2(venn_labels=["LEFT", "RIGHT","MID"], fill_venn=False,
         title=main_title,
         font=dict(family=data_font, size=title_size,color=font_color),
         plot_bgcolor=bg_color, paper_bgcolor=bg_color,
-        height=fig_width*0.9, #use width for height so that image is not stretched
+        height=fig_height, #use width for height so that image is not stretched
         width=fig_width,
         margin=dict(l=20, r=20, b=100),
     )
