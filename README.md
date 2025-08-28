@@ -17,17 +17,17 @@ pip install artfornormies
 
 Generate a visual using one of the listed functions:
 ```
-from artfornormies import functions as art
+from artfornormies.object_graphs import Chart
 
-fig = art.create_venn_2(
-    venn_labels=["What feels like a waste of time",
-                "What you'll regret not doing in 10 years",
-                "That personal project that makes you feel like yourself"
-                ],
-    main_title="",
-    fill_venn=True,
-    night_mode=True
-)
+afn = Chart(fig_width = 900, fig_height=800,night_mode = True, opacity_val=0.75,
+                title_size=20, axis_label_size=20, tick_label_size=16, label_size=18, anno_size=10,
+                label_charlen=9, anno_text= "Source: <i>https://github.com/jon-tk-chan</i><br><i>Instagram: @artfornormies</i>"
+            )
+
+afn.create_venn_2(text_labels=["Moving at a pace that is right for you right now", 
+                              "Moving at a pace that appears much slower than your peers",
+                              "More common than you think"],
+                  main_title="")
 
 fig.write_image("images/ex_plot.png")
 ```

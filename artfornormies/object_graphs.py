@@ -53,10 +53,10 @@ def newlined(input_string, max_line_len=12):
 #boilerplate figure
 
 class Chart():
-    def __init__(self, fig_width=1000, fig_height= 1000, night_mode=True, opacity_val=0.75,
+    def __init__(self, fig_width=750, fig_height= 600, night_mode=True, opacity_val=0.75,
                 # main_title="MAIN TITLE", 
                  label_charlen = 10,
-                 title_size=32,axis_label_size=28,tick_label_size=16, label_size= 22, anno_size=4, 
+                 title_size=20,axis_label_size=20, tick_label_size=16, label_size= 18, anno_size=10, 
                 anno_text= "Source: <i>https://github.com/jon-tk-chan</i><br><i>Instagram: @artfornormies</i>"):
         #create attributes
         self.fig_width = fig_width
