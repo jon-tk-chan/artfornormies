@@ -77,6 +77,7 @@ blue_823 = "#8b93ad"
 
 triad_1 = [sand_823, salmon_823, blue_823]
 
+color_list = list(color_combos.values())
 data_font='Futura'
 title_font='Futura'
 anno_text_default = "Source: <i>https://github.com/jon-tk-chan</i><br><i>Instagram: @artfornormies</i>"
@@ -112,7 +113,7 @@ def newlined(input_string, max_line_len=12):
 def create_heatmap(x_ticks=['LEFT TICK', 'RIGHT TICK'], y_ticks=['BOTTOM TICK', 'TOP TICK'],
                    text_labels=[["bottom left", "bottom right"],["top left", "top right"]],
                     main_title='HEATMAP_TITLE',x_title='X_TITLE', y_title='Y_TITLE', anno_text = anno_text_default,
-                  main_colorscale=hk_bluered, night_mode=True):
+                   main_colorscale=hk_bluered, night_mode=True):
     """
     Returns a Plotly Graph Object as a styled heatmap
     
